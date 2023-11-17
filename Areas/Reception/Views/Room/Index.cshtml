@@ -59,12 +59,13 @@
                 getRoomsByArea(selectedArea); // Gọi phương thức để lấy danh sách phòng theo khu vực
             });
         });
+
         $('#btnCreate').click(function () {
             window.location.href = '@Url.Action("Create", "Room")';
         });
          function editRoomPrice(roomID) {
         // Chuyển hướng đến action Edit (POST) và truyền tham số RoomID
-        window.location.href = '@Url.Action("Edit", "Room")?roomID=' + roomID;
+        window.location.href = '@Url.Action("Edit", "Room")?id=' + roomID;
           }
 
         function loadAreaOptions() {

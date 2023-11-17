@@ -11,8 +11,8 @@ namespace LuxuryHotel.Areas.Reception.Controllers
 {
     public class PriceFormationController : Controller
     {
-        private dbDataContext _db = new dbDataContext("Data Source=MSI;Initial Catalog=LuxuryHotel;Integrated Security=True");
-
+        private dbDataContext _db = new dbDataContext();
+        
         public ActionResult Index()
         {
             return View();
@@ -23,7 +23,6 @@ namespace LuxuryHotel.Areas.Reception.Controllers
         {
             try
             {
-                // Sử dụng LINQ để truy vấn dữ liệu từ Entity Framework
                 var roomTypes = _db.ROOMTYPEs
                     .Select(r => new
                     {

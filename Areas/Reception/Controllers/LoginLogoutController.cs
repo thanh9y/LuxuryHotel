@@ -15,7 +15,7 @@ namespace LuxuryHotel.Areas.Reception.Controllers
 {
     public class LoginLogoutController : Controller
     {
-        private dbDataContext db = new dbDataContext("Data Source=MSI;Initial Catalog=LuxuryHotel;Integrated Security=True");
+        private dbDataContext db = new dbDataContext();
 
 
         public ActionResult Login()

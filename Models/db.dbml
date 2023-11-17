@@ -60,14 +60,6 @@
       <Association Name="CUSTOMER_REVIEW" Member="REVIEWs" ThisKey="CustomerID" OtherKey="CustomerID" Type="REVIEW" />
     </Type>
   </Table>
-  <Table Name="dbo.Images" Member="Images">
-    <Type Name="Image">
-      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="RoomID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ImagePath" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="ROOM_Image" Member="ROOM" ThisKey="RoomID" OtherKey="RoomID" Type="ROOM" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.PAYMENT" Member="PAYMENTs">
     <Type Name="PAYMENT">
       <Column Name="Payid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -109,9 +101,9 @@
       <Column Name="RoomStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="RoomTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Area" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="ROOM_Image" Member="Images" ThisKey="RoomID" OtherKey="RoomID" Type="Image" />
       <Association Name="ROOM_REVIEW" Member="REVIEWs" ThisKey="RoomID" OtherKey="RoomID" Type="REVIEW" />
       <Association Name="ROOM_RoomUtility" Member="RoomUtilities" ThisKey="RoomID" OtherKey="RoomID" Type="RoomUtility" />
+      <Association Name="ROOM_Image1" Member="Images" ThisKey="RoomID" OtherKey="RoomID" Type="Image" />
       <Association Name="ROOMTYPE_ROOM" Member="ROOMTYPE" ThisKey="RoomTypeID" OtherKey="RoomTypeID" Type="ROOMTYPE" IsForeignKey="true" />
     </Type>
   </Table>
@@ -150,6 +142,15 @@
       <Column Name="UtilitiesName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="UtilitiesPicture" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Utility_RoomUtility" Member="RoomUtilities" ThisKey="UtilitiesID" OtherKey="UtilitiesID" Type="RoomUtility" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Images" Member="Images">
+    <Type Name="Image">
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoomID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImagePath" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ROOM_Image1" Member="ROOM" ThisKey="RoomID" OtherKey="RoomID" Type="ROOM" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

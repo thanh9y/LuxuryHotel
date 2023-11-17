@@ -124,9 +124,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Reception\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Reception\Controllers\ImageController.cs" />
     <Compile Include="Areas\Reception\Controllers\LoginLogoutController.cs" />
     <Compile Include="Areas\Reception\Controllers\PriceFormationController.cs" />
     <Compile Include="Areas\Reception\Controllers\RoomController.cs" />
+    <Compile Include="Areas\Reception\Controllers\ServiceController.cs" />
     <Compile Include="Areas\Reception\Controllers\StatisticController.cs" />
     <Compile Include="Areas\Reception\ReceptionAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2121,6 +2124,8 @@
     </Content>
     <Content Include="Areas\Reception\Views\Room\Create.cshtml" />
     <Content Include="Areas\Reception\Views\Room\Edit.cshtml" />
+    <Content Include="Areas\Reception\Views\Service\Index.cshtml" />
+    <Content Include="Areas\Reception\Views\Image\Index.cshtml" />
     <None Include="Models\db.dbml.layout">
       <DependentUpon>db.dbml</DependentUpon>
     </None>
@@ -2267,6 +2272,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Reception\Data\" />
+    <Folder Include="Areas\Reception\Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

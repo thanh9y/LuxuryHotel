@@ -55,8 +55,7 @@
         });
     </script>
     @Styles.Render("~/Content/css")
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     @RenderSection("customStyles", required: false)
 </head>
 <body>
@@ -311,41 +310,36 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Statistics", "Admin")">
+                        <a class="nav-link" href="@Url.Action("Index", "Statistic")">
                             <i class="icon-grid menu-icon"></i>
                             <span class="menu-title">Statistic</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("IndexTopic", "Admin")">
+                        <a class="nav-link" href="@Url.Action("Index", "Room")">
                             <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Quản lý chủ đề</span>
+                            <span class="menu-title">Quản lý Phòng</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("IndexNXB", "Admin")">
+                        <a class="nav-link" href="@Url.Action("Index", "PriceFormation")">
                             <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Quản lý nhà xuất bản</span>
+                            <span class="menu-title">Quản lý Loại Phòng</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("BookManagement", "Admin")">
+                        <a class="nav-link" href="@Url.Action("Index", "Service")">
                             <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Quản lý sách</span>
+                            <span class="menu-title">Quản lý dịch vụ</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("News", "Admin")">
+                        <a class="nav-link" href="@Url.Action("Index","Image")">
                             <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Quản lý trang tin</span>
+                            <span class="menu-title">Quản lý Ảnh</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Menus", "Admin")">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Quản lý Menu</span>
-                        </a>
-                    </li>
+
                 </ul>
             </nav>
             <!-- partial -->

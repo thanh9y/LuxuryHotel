@@ -11,7 +11,7 @@ namespace LuxuryHotel.Areas.Reception.Controllers
 {
     public class RoomController : Controller
     {
-        private dbDataContext db = new dbDataContext("Data Source=MSI;Initial Catalog=LuxuryHotel;Integrated Security=True");
+        private dbDataContext db = new dbDataContext();
 
         public ActionResult Index()
         {
