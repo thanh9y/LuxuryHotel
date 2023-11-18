@@ -41,7 +41,7 @@
 
                         // Kiểm tra xem dataTable đã được khởi tạo chưa
                         if (dataTable) {
-      
+
                             // Xóa dòng cũ
                             dataTable.clear();
 
@@ -52,7 +52,7 @@
                                 s += '<td style=" width: 550%;">' + getImages(getUrlImages(v.RoomID)) + '</td>';
                                 s += '<td style="text-align: right; width: 15%;">' + getCount(getUrlImages(v.RoomID)) + '</td>';
                                 s += '<td class="col-ms-3 text-right" style=" width: 15%;">';
-                                s += '<button class="btn btn-sm btn-warning" name="update" onclick="editRoomImages(' + v.RoomTypeID + ')"><i class="fa fa-pen-square" aria-hidden="true"></i></button>&nbsp';
+                                s += '<button class="btn btn-sm btn-warning" name="update" onclick="editRoomImages(' + v.RoomID + ')"><i class="fa fa-pen-square" aria-hidden="true"></i></button>&nbsp';
                                 s += '</td>';
                                 s += '</tr>';
                                 dataTable.row.add($(s));
@@ -70,7 +70,7 @@
             loadRoomImages(dataTable);
         });
 
-     
+
 
         // Hàm này gọi phương thức API để lấy thông tin UrlImages từ Room
         function getUrlImages(roomID) {
@@ -106,6 +106,10 @@
                 count++;
             });
             return count;
+        }
+        function editRoomImages(roomID)
+        {
+            window.location.href = '@Url.Action("Edit", "Image")?roomID=' + roomID;
         }
     </script>
 }

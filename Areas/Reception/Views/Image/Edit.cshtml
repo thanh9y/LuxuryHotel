@@ -1,0 +1,183 @@
+﻿@model List<LuxuryHotel.Models.Image>
+
+@{
+    ViewBag.Title = "Quản lý ảnh";
+    Layout = "~/Areas/Reception/Views/Shared/LayoutAdmin.cshtml";
+}
+
+@section customStyles {
+    <style>
+        #page-edit-img {
+            width: 100%;
+            position: relative;
+            display: flex;
+        }
+
+        #imageContainer {
+            position: absolute;
+            width: 60%;
+            left: 10px;
+        }
+
+        #form-create-edit {
+            position: absolute;
+            width: 35%;
+            right: 10px;
+            display: none;
+        }
+
+        #item img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        #item span {
+            position: absolute;
+            top: 1px;
+            right: 20px;
+        }
+
+            #item span:hover {
+                font-weight: 700;
+                color: red;
+                cursor: pointer;
+            }
+    </style>
+}
+
+<input type="hidden" name="IDRoom" id="txtRoomID" value="@ViewBag.roomID" />
+<button type="button" class="btn btn-success" onclick="showCreateForm()" style="width:80px">Create</button>
+
+<div id="page-edit-img">
+    <div id="imageContainer" class="row">
+        <!-- Các hình ảnh sẽ được thêm vào đây -->
+    </div>
+
+    <div id="form-create-edit">
+
+
+        <form id="editForm">
+            <input type="hidden" name="IDRoom" id="txtRoomID" value="@ViewBag.roomID" />
+            <div class="form-group">
+                <label for="editPriceFirstHour">Ảnh:</label>
+                <input type="file" class="form-control" id="fFileUpload" required>
+            </div>
+            <div class="form-group">
+                <label for="editPriceOverTime">Ưu tiên:</label>
+                <input type="number" class="form-control" id="txtOderID" min="1" required>
+            </div>
+
+            <!-- Các nút để submit hoặc đóng form -->
+            <button type="button" class="btn btn-primary" onclick="submitEditForm()">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="closeEditForm()">Close</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            loadImages();
+        });
+
+        function loadImages() {
+            var roomID = $('#txtRoomID').val();
+            console.log("RoomID=" + roomID);
+            $.ajax({
+                url: '/Reception/Image/GetImages',
+                type: 'get',
+                data: { roomID: roomID },
+                success: function (data) {
+                    if (data.code === 200) {
+                        console.log(data);
+                        var imageContainer = $('#imageContainer');
+                        imageContainer.empty();
+
+                        $.each(data.images, function (i, images) {
+                            var imageDiv = $('<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="item">');
+                            imageDiv.append(`<img src="/Admin/Images/Room/${images.ImagePath}" loading="lazy"  />`);
+                            imageDiv.append(`<span onclick="deleteImage(${images.ImageID})">X</span></div>`);
+                            imageContainer.append(imageDiv);
+                        });
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+
+        function deleteImage(imageID) {
+            $.ajax({
+                url: '/Reception/Image/DeleteImage',
+                type: 'post',
+                data: { imageID: imageID },
+                success: function (data) {
+                    if (data.code === 200) {
+                        loadImages();
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+
+        function showCreateForm() {
+            $('#form-create-edit').show();
+            $('#txtOderID').val('1');
+        }
+
+        function closeForm() {
+            $('#form-create-edit').hide();
+        }
+
+        function submitEditForm() {
+        // Lấy giá trị từ các trường input
+        var roomID = $("#txtRoomID").val();
+        var fileUpload = $("#fFileUpload")[0].files[0];
+        var orderID = $("#txtOderID").val();
+
+        // Tạo đối tượng FormData để chứa dữ liệu form
+        var formData = new FormData();
+        formData.append("IDRoom", roomID);
+        formData.append("fileUpload", fileUpload);
+        formData.append("OderID", orderID);
+
+        // Thực hiện AJAX request để gửi dữ liệu đến server
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Create", "Image")',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // Xử lý kết quả thành công
+                alert("Form submitted successfully!");
+                // Có thể thêm các hành động khác tại đây (chẳng hạn, làm mới trang, đóng form, vv.)
+            },
+            error: function (error) {
+                // Xử lý lỗi
+                alert("Error submitting form: " + error.statusText);
+            }
+        });
+    }
+
+
+
+
+    </script>
+   
+
+    <script>
+        // Function to handle form submission
+        
+
+        // Function to close the form
+        function closeEditForm() {
+            // Thêm các hành động để đóng form (nếu cần)
+            alert("Form closed!");
+        }
+    </script>
+
+}
