@@ -255,5 +255,7 @@ namespace LuxuryHotel.Areas.Reception.Controllers
                 return Json(new { code = 500, msg = "Lỗi khi xóa phòng: " + ex.Message });
             }
         }
+       
+
     }
 }

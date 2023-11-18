@@ -90,7 +90,8 @@ namespace LuxuryHotel.Areas.Reception.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(int roomID, int iOderID, HttpPostedFileBase fFileUpload)
+        [ValidateInput(false)]
+        public ActionResult Create(FormCollection f, HttpPostedFileBase fFileUpload)
         {
             try
             {
@@ -112,9 +113,9 @@ namespace LuxuryHotel.Areas.Reception.Controllers
                     // Tạo mới đối tượng Image
                     LuxuryHotel.Models.Image images = new LuxuryHotel.Models.Image
                     {
-                        RoomID = roomID,
+                        RoomID = int.Parse(f["roomID"]),
                         ImagePath = sFileName,
-                        OderID = iOderID
+                        OderID = int.Parse(f["iOderID"]),
                     };
 
                     // Thêm vào CSDL
@@ -131,6 +132,67 @@ namespace LuxuryHotel.Areas.Reception.Controllers
                 System.Diagnostics.Trace.WriteLine("Error: " + e.Message);
                 // Xử lý lỗi và trả về thông báo lỗi
                 return Json(new { code = 500, msg = "Lỗi khi tạo mới hình ảnh: " + e.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteImage(int imageID)
+        {
+            try
+            {
+                // Kiểm tra xem có hình ảnh với ID cần xóa không
+                var imageToDelete = db.Images.SingleOrDefault(i => i.ImageID == imageID);
+
+                if (imageToDelete == null)
+                {
+                    return Json(new { code = 404, msg = "Không tìm thấy hình ảnh để xóa." });
+                }
+
+                // Lấy đường dẫn ảnh để xóa file từ thư mục
+                var imagePath = Path.Combine(Server.MapPath("/Admin/Images/Room"), imageToDelete.ImagePath);
+
+                // Xóa ảnh từ CSDL
+                db.Images.DeleteOnSubmit(imageToDelete);
+                db.SubmitChanges();
+
+                // Xóa file ảnh từ thư mục
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+
+                return Json(new { code = 200, msg = "Xóa hình ảnh thành công." });
+            }
+            catch (Exception e)
+            {
+                // Xử lý lỗi và trả về thông báo lỗi
+                return Json(new { code = 500, msg = "Lỗi khi xóa hình ảnh: " + e.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdateOderID(int imageID, int oderID)
+        {
+            try
+            {
+                // Kiểm tra xem có hình ảnh với ID cần cập nhật không
+                var imageToUpdate = db.Images.FirstOrDefault(i => i.ImageID == imageID);
+
+                if (imageToUpdate == null)
+                {
+                    return Json(new { code = 404, msg = "Không tìm thấy hình ảnh để cập nhật." });
+                }
+
+                // Cập nhật giá trị Oder ID
+                imageToUpdate.OderID = oderID;
+                db.SubmitChanges();
+
+                return Json(new { code = 200, msg = "Cập nhật Oder ID thành công." });
+            }
+            catch (Exception e)
+            {
+                // Xử lý lỗi và trả về thông báo lỗi
+                return Json(new { code = 500, msg = "Lỗi khi cập nhật Oder ID: " + e.Message });
             }
         }
 
