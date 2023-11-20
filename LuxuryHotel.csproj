@@ -2127,6 +2127,7 @@
     <Content Include="Areas\Reception\Views\Service\Index.cshtml" />
     <Content Include="Areas\Reception\Views\Image\Index.cshtml" />
     <Content Include="Areas\Reception\Views\Image\Edit.cshtml" />
+    <Content Include="Areas\Reception\Views\Customer\Index.cshtml" />
     <None Include="Models\db.dbml.layout">
       <DependentUpon>db.dbml</DependentUpon>
     </None>
@@ -2274,7 +2275,6 @@
     <Folder Include="Admin\Images\Room\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Reception\Data\" />
-    <Folder Include="Areas\Reception\Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
