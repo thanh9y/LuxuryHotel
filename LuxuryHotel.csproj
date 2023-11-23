@@ -124,6 +124,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Reception\Controllers\BookingController.cs" />
     <Compile Include="Areas\Reception\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Reception\Controllers\ImageController.cs" />
     <Compile Include="Areas\Reception\Controllers\LoginLogoutController.cs" />
@@ -2128,6 +2129,7 @@
     <Content Include="Areas\Reception\Views\Image\Index.cshtml" />
     <Content Include="Areas\Reception\Views\Image\Edit.cshtml" />
     <Content Include="Areas\Reception\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Reception\Views\Booking\Index.cshtml" />
     <None Include="Models\db.dbml.layout">
       <DependentUpon>db.dbml</DependentUpon>
     </None>

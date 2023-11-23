@@ -64,6 +64,18 @@
             $('#editPhoneNumber').val('');
             $('#btn-delete').hide();
         }
+        function isValidPhoneNumber(phoneNumber) {
+            // Biểu thức chính quy kiểm tra xem chuỗi có chứa 10 chữ số không
+            var phoneRegex = /^\d{10}$/;
+
+            if (phoneRegex.test(phoneNumber)) {
+                // Chuỗi là số điện thoại hợp lệ
+                return true;
+            } else {
+                // Chuỗi không phải là số điện thoại hợp lệ
+                return false;
+            }
+        }
         function loadCustomerList(dataTable) {
     $.ajax({
         url: '/Reception/Customer/GetCustomerList',
@@ -73,13 +85,13 @@
                 console.log(data);
 
                 // Kiểm tra xem dataTable đã được khởi tạo chưa
-                if (dataTable) {
+              
 
                     // Xóa dòng cũ
                     dataTable.clear();
 
                     // Thêm dữ liệu mới
-                    $.each(data.customerList, function (k, v) {
+                $.each(data.customer, function (k, v) {
                         let s = '<tr id="' + v.CustomerID + '">';
                         s += '<td style="text-align: left;">' + v.User + '</td>';
                         s += '<td>' + v.Password + '</td>';
@@ -95,7 +107,7 @@
 
                     // Tạo lại DataTable
                     dataTable.draw();
-                }
+                
             }
         }
     });
@@ -112,7 +124,7 @@
         function deleteCustomer() {
             var customerID = $('#editCustomerID').val();
 
-            if (confirm('Bạn có chắc muốn xóa loại phòng này không?')) {
+            if (confirm('Bạn có chắc muốn xóa người dùng này không?')) {
                 $.ajax({
                     url: '/Reception/Customer/CheckAndDeleteCustomer',
                     type: 'post',
@@ -134,7 +146,7 @@
             }
         }
 
-        function editCustomer(id) {
+        function editCustomerList(id) {
             console.log(id);
             $.ajax({
                 url: '/Reception/Customer/GetCustomerTypeDetails',
@@ -144,7 +156,7 @@
                 },
                 success: function (data) {
                     if (data.code == 200) {
-                        showEditForm(data.customer);
+                        showEditForm(data.customerList);
                     } else {
                         alert(data.msg);
                     }
@@ -155,24 +167,18 @@
         function closeEditForm() {
             $('#editFormContainer').hide();
         }
-
+        
         function submitEditForm() {
             function validateFormData() {
                 var editedPassword = $('#editPassword').val();
-                var editedEmail = $('#editEmail').val();
-                var editedPhoneNumber = $('#editPhoneNumber').val();
+                var editedPhoneNumber = $('#editPriceOverTime').val();
 
-                if (editedPassword <= 5) {
+                if (editedPassword.lenght <= 5) {
                     alert('Password quá ngắn.');
                     return false;
                 }
 
-                if (editedEmail.indexOf(".") === -1) {
-                    alert('Email không hợp lệ.');
-                    return false;
-                }
-
-                if (isNaN(editedPhoneNumber < 10)) {
+                if (isValidPhoneNumber(editedPhoneNumber)) {
                     alert('Số điện thoại không hợp lệ.');
                     return false;
                 }
@@ -185,12 +191,12 @@
             }
 
             var editCustomerID = $('#editCustomerID').val();
-            var editedUser = $('#editTypeUser').val();
+            var editedUser = $('#editUser').val();
             var editedPassword = $('#editPassword').val();
-            var editedFullName = $('#editOverNightPrice').val();
-            var editedEmail = $('#editPriceFirstHour').val();
-            var editedPhoneNumber = $('#editPriceOverTime').val();
-
+            var editedFullName = $('#editFullName').val();
+            var editedEmail = $('#editEmail').val();
+            var editedPhoneNumber = $('#editPhoneNumber').val();
+            console.log("ID=" + editCustomerID + "User=" + editedUser);
             var actionUrl = '/Reception/Customer/Edit';
 
             // Nếu RoomTypeID không tồn tại, đổi hành động sang tạo mới
@@ -211,6 +217,7 @@
                     PhoneNumber: editedPhoneNumber,
                 }),
                 success: function (data) {
+                    console.log(data);
                     if (data.code === 200) {
                         $('#editFormContainer').hide();
                         loadCustomerList(dataTable);
@@ -219,9 +226,11 @@
                     }
                 },
                 error: function () {
+                    console.log('Error:', arguments);
                     alert('Đã xảy ra lỗi khi gửi dữ liệu lên server.');
                 }
             });
+          
         }
     </script>
 }

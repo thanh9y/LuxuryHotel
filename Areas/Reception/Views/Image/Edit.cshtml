@@ -1,4 +1,4 @@
-﻿@model List<LuxuryHotel.Models.Image>
+﻿﻿@model List<LuxuryHotel.Models.Image>
 
 @{
     ViewBag.Title = "Quản lý ảnh";
@@ -44,8 +44,9 @@
                 color: red;
                 cursor: pointer;
             }
-        #imageContainer img{
-            border-radius:5%;
+
+        #imageContainer img {
+            border-radius: 5%;
         }
     </style>
 }
@@ -86,7 +87,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">Chỉnh sửa ưu tiên</h5>
-               
+
             </div>
             <div class="modal-body">
                 <input type="number" class="form-control" id="editImageID" hidden>
@@ -229,9 +230,9 @@
                 }
             });
         }
-        
 
-        
+
+
 
     </script>
 }
